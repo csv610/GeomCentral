@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/csv610/Projects/Mesh/geometry-central/test-build/_deps/eigen-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

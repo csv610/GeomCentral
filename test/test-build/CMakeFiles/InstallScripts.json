@@ -1,0 +1,13 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/csv610/Projects/Mesh/geometry-central/test-build/cmake_install.cmake",
+		"/Users/csv610/Projects/Mesh/geometry-central/test-build/googletest-build/cmake_install.cmake",
+		"/Users/csv610/Projects/Mesh/geometry-central/test-build/googletest-build/googlemock/cmake_install.cmake",
+		"/Users/csv610/Projects/Mesh/geometry-central/test-build/googletest-build/googletest/cmake_install.cmake",
+		"/Users/csv610/Projects/Mesh/geometry-central/test-build/lib/cmake_install.cmake",
+		"/Users/csv610/Projects/Mesh/geometry-central/test-build/lib/deps/cmake_install.cmake",
+		"/Users/csv610/Projects/Mesh/geometry-central/test-build/lib/src/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
