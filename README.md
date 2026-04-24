@@ -4,6 +4,22 @@
 
 ---
 
+## 🚀 Enhancing the CLI Experience
+
+One of the primary goals of this port is to bridge the gap between the library's vast internal capabilities and their availability through command-line tools. 
+
+In the original software, many of the powerful algorithms were only accessible by writing C++ code. This version includes an expanded suite of CLI tools, making the library's features more accessible to researchers and developers who need to process meshes directly from the terminal. 
+
+New and improved CLI tools include:
+- **`mesh_info`**: Detailed statistics and sanity checks for mesh data.
+- **`mesh_convert`**: Efficient format conversion.
+- **`geodesic_distance`**: Compute distances across surfaces.
+- **`mesh_remesh` & `simplify`**: Tools for modifying and optimizing mesh density.
+- **`mesh_curvature` & `mesh_normals`**: Direct extraction of geometric properties.
+- **`parameterize` & `subdivide`**: Advanced surface processing tools.
+
+---
+
 ## 🌟 Features
 
 GeomCentral provides a comprehensive suite of tools for researchers and developers working with geometric data:
@@ -19,22 +35,23 @@ GeomCentral provides a comprehensive suite of tools for researchers and develope
 
 ---
 
-## 🚀 Getting Started
+## 🛠 Getting Started
 
 ### Prerequisites
 - A modern C++ compiler (supporting C++11 or later).
 - [CMake](https://cmake.org/) (version 3.10+ recommended).
 
-### Building the Library
-To build GeomCentral and its associated tools:
+### Building the Library and Tools
+To build GeomCentral and the expanded set of CLI tools:
 
 ```bash
 mkdir build && cd build
 cmake ..
 make -j4
 ```
+The compiled binaries will be available in the `apps/` directory within your build folder.
 
-### Basic Usage Example
+### Basic Usage Example (C++ API)
 Here is a quick snippet showing how to load a mesh and compute vertex areas:
 
 ```cpp
@@ -73,7 +90,7 @@ int main() {
 
 ## 🤝 Contributions
 
-Contributions are welcome! If you find bugs, have feature requests, or want to contribute code:
+Contributions are welcome! If you find bugs, have feature requests, or want to contribute code—especially new CLI tools to further bridge the gap—please get involved:
 
 1. **Bug Reports**: Please use the GitHub issues tracker to report bugs.
 2. **Pull Requests**: For code contributions, please fork the repository and submit a pull request. Ensure your code follows the existing style and includes tests where applicable.
