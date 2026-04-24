@@ -1,67 +1,93 @@
-# Documentation is hosted at [geometry-central.net](http://geometry-central.net)
+# GeomCentral
+
+**GeomCentral** is a modern C++ library for geometry processing, focusing on surface meshes and point clouds. This repository is a port of the original [geometry-central](https://github.com/nmwsharp/geometry-central) library, maintained to ensure compatibility and ease of use for various geometry processing tasks.
+
 ---
 
-# Welcome to Geometry Central
+## 🌟 Features
 
-[![actions status linux](https://github.com/nmwsharp/geometry-central/workflows/linux/badge.svg)](https://github.com/nmwsharp/geometry-central/actions)
-[![actions status macOS](https://github.com/nmwsharp/geometry-central/workflows/macOS/badge.svg)](https://github.com/nmwsharp/geometry-central/actions)
-[![actions status windows](https://github.com/nmwsharp/geometry-central/workflows/windows/badge.svg)](https://github.com/nmwsharp/geometry-central/actions)
+GeomCentral provides a comprehensive suite of tools for researchers and developers working with geometric data:
 
-Geometry-central is a modern C++ library of data structures and algorithms for geometry processing, with a particular focus on surface meshes.
+- **Surface Mesh Data Structure**: A high-performance, flexible halfedge mesh implementation with efficient element containers.
+- **Geometric Quantities**: Built-in support for normals, curvatures, tangent bases, and discrete differential geometry operators (Laplacian, etc.).
+- **Advanced Algorithms**: 
+  - Geodesic distance computation (Heat Method, etc.)
+  - Direction field generation and processing.
+  - Intrinsic Delaunay triangulations and signpost intrinsic triangulations.
+  - Parameterization and remeshing tools.
+- **Numerical Tools**: A set of sparse linear algebra utilities built on top of [Eigen](http://eigen.tuxfamily.org/), with support for SuiteSparse when available.
 
-Features include:
+---
 
-- A polished **surface mesh** class, with efficient support for mesh modification, and a system of containers for associating data with mesh elements.
-- Implementations of canonical **geometric quantities** on surfaces, ranging from normals and curvatures to tangent vector bases to operators from discrete differential geometry.
-- A suite of **powerful algorithms**, including computing distances on surface, generating direction fields, and manipulating intrinsic Delaunay triangulations.
-- A coherent set of sparse **linear algebra tools**, based on Eigen and augmented to automatically utilize better solvers if available on your system.
+## 🚀 Getting Started
 
+### Prerequisites
+- A modern C++ compiler (supporting C++11 or later).
+- [CMake](https://cmake.org/) (version 3.10+ recommended).
 
-**Sample:**
+### Building the Library
+To build GeomCentral and its associated tools:
+
+```bash
+mkdir build && cd build
+cmake ..
+make -j4
+```
+
+### Basic Usage Example
+Here is a quick snippet showing how to load a mesh and compute vertex areas:
 
 ```cpp
-// Load a mesh
-std::unique_ptr<SurfaceMesh> mesh;
-std::unique_ptr<VertexPositionGeometry> geometry;
-std::tie(mesh, geometry) = readSurfaceMesh("spot.obj"); 
+#include "geometrycentral/surface/surface_mesh.h"
+#include "geometrycentral/surface/meshio.h"
+#include "geometrycentral/surface/vertex_position_geometry.h"
 
-// Compute vertex areas
-VertexData<double> vertexAreas(*mesh);
+using namespace geometrycentral;
+using namespace geometrycentral::surface;
 
-geometry->requireFaceAreas();
-for(Vertex v : mesh->vertices()) {
-  double A = 0.;
-  for(Face f : v.adjacentFaces()) {
-    A += geometry->faceAreas[f] / v.degree();
-  }
-  vertexAreas[v] = A;
+int main() {
+    // Load a mesh and its geometry
+    std::unique_ptr<SurfaceMesh> mesh;
+    std::unique_ptr<VertexPositionGeometry> geometry;
+    std::tie(mesh, geometry) = readSurfaceMesh("mesh.obj"); 
+
+    // Compute face areas
+    geometry->requireFaceAreas();
+
+    // Use a VertexData container to store results
+    VertexData<double> vertexAreas(*mesh);
+
+    for(Vertex v : mesh->vertices()) {
+        double area = 0.0;
+        for(Face f : v.adjacentFaces()) {
+            area += geometry->faceAreas[f] / 3.0; // Simple approximation
+        }
+        vertexAreas[v] = area;
+    }
+
+    return 0;
 }
 ```
 
-Check out the docs, tutorials, and build instructions at [geometry-central.net](http://geometry-central.net).  Use the [sample project](https://github.com/nmwsharp/gc-polyscope-project-template/) to get started with a build system and a gui.
+---
 
+## 🤝 Contributions
 
-**Related alternatives:** 
-[CGAL](https://www.cgal.org/),
-[libIGL](https://github.com/libigl/libigl),
-[OpenMesh](http://www.openmesh.org/),
-[Polygon Mesh Processing Library](https://www.pmp-library.org/),
-[CinoLib](https://github.com/mlivesu/cinolib)
+Contributions are welcome! If you find bugs, have feature requests, or want to contribute code:
+
+1. **Bug Reports**: Please use the GitHub issues tracker to report bugs.
+2. **Pull Requests**: For code contributions, please fork the repository and submit a pull request. Ensure your code follows the existing style and includes tests where applicable.
+3. **Feedback**: We value your input on how to make the library better for the community.
 
 ---
 
-**Credits**
+## 📜 Credits & Citation
 
-Geometry-central is developed by [Nicholas Sharp](http://nmwsharp.com), with many contributions from 
-[Keenan Crane](http://keenan.is/here), 
-[Yousuf Soliman](http://www.its.caltech.edu/~ysoliman/),
-[Mark Gillespie](http://markjgillespie.com/),
-[Rohan Sawhney](http://rohansawhney.io/), and many others.
+This library is a port of the original **geometry-central**, which was primarily developed by [Nicholas Sharp](http://nmwsharp.com) along with contributions from Keenan Crane, Yousuf Soliman, Mark Gillespie, Rohan Sawhney, and others.
 
+If you use this library in an academic publication, please cite the original work:
 
-
-If geometry-central contributes to an academic publication, cite it as:
-```bib
+```bibtex
 @article{geometrycentral,
   title={GeometryCentral: A modern C++ library of data structures and algorithms for geometry processing},
   author={Nicholas Sharp and Keenan Crane and others},
@@ -70,4 +96,10 @@ If geometry-central contributes to an academic publication, cite it as:
 }
 ```
 
-Development of this software was funded in part by NSF Award 1717320, an NSF graduate research fellowship, and gifts from Adobe Research and Autodesk, Inc.
+---
+
+## 📄 License
+
+GeomCentral is released under the [MIT License](LICENSE). 
+
+For more detailed information, tutorials, and documentation, visit the original documentation site at [geometry-central.net](http://geometry-central.net).
