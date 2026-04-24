@@ -20,6 +20,16 @@ New and improved CLI tools include:
 
 ---
 
+## 🔍 Exploration & Comparisons
+
+This project is part of a broader exploration of **simplicity and usability** in geometry processing software. 
+
+We are actively investigating the streamlined, data-centric philosophy found in libraries like **libIGL** and applying those lessons to this port. A key focus is evaluating how **GeomCentral** performs relative to industry standards like **libIGL** and **CGAL**, specifically from an end-user experience perspective. 
+
+Our goal is to combine the deep, specialized algorithms of Geometry Central with the developer-friendly simplicity that makes modern geometry processing accessible to a wider audience.
+
+---
+
 ## 🌟 Features
 
 GeomCentral provides a comprehensive suite of tools for researchers and developers working with geometric data:
