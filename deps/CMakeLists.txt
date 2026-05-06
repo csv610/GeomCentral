@@ -51,9 +51,9 @@ else()
   else()
 
     # GC_EIGEN_LOCATION is not set
-    # (3) Search using the normal method
+    # (3) Search using the normal method - prefer system Eigen
     if(NOT GC_ALWAYS_DOWNLOAD_EIGEN)
-      find_package (Eigen3 3.4 QUIET)
+      find_package (Eigen3 3.3 QUIET)
     endif()
 
     if(EIGEN3_FOUND)
