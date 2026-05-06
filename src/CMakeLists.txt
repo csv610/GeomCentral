@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8.0)
+cmake_minimum_required(VERSION 3.14.0)
 
 # Maybe stop from CMAKEing in the wrong place
 if (CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
@@ -185,7 +185,7 @@ target_include_directories(geometry-central PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/
 target_link_libraries(geometry-central PUBLIC ${GC_DEP_LIBS})
 
 # Set compiler properties for the library
-target_compile_features(geometry-central PUBLIC cxx_std_11)
+target_compile_features(geometry-central PUBLIC cxx_std_20)
 set_target_properties(geometry-central PROPERTIES
   CXX_STANDARD_REQUIRED TRUE
   CXX_EXTENSIONS OFF

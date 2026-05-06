@@ -14,66 +14,62 @@ using namespace geometrycentral::surface;
 class SubdivisionSuite : public MeshAssetSuite {};
 
 TEST_F(SubdivisionSuite, LoopSubdivide) {
-  std::unique_ptr<ManifoldSurfaceMesh> mesh;
-  std::unique_ptr<VertexPositionGeometry> geometry;
-  std::tie(mesh, geometry) = readSurfaceMesh(testMeshTriangle);
+  MeshAsset a = getAsset("spot.ply", true);
   
-  ASSERT_TRUE(mesh != nullptr);
-  ASSERT_TRUE(geometry != nullptr);
+  ASSERT_TRUE(a.mesh != nullptr);
+  ASSERT_TRUE(a.geometry != nullptr);
+  ASSERT_TRUE(a.manifoldMesh != nullptr);
   
-  size_t origV = mesh->nVertices();
-  size_t origF = mesh->nFaces();
+  size_t origV = a.mesh->nVertices();
+  size_t origF = a.mesh->nFaces();
   
-  loopSubdivide(*mesh, *geometry);
+  loopSubdivide(*a.manifoldMesh, *a.geometry);
   
-  EXPECT_GT(mesh->nVertices(), origV);
-  EXPECT_GT(mesh->nFaces(), origF);
+  EXPECT_GT(a.mesh->nVertices(), origV);
+  EXPECT_GT(a.mesh->nFaces(), origF);
 }
 
 TEST_F(SubdivisionSuite, CatmullClarkSubdivide) {
-  std::unique_ptr<ManifoldSurfaceMesh> mesh;
-  std::unique_ptr<VertexPositionGeometry> geometry;
-  std::tie(mesh, geometry) = readSurfaceMesh(testMeshTriangle);
+  MeshAsset a = getAsset("spot.ply", true);
   
-  ASSERT_TRUE(mesh != nullptr);
+  ASSERT_TRUE(a.mesh != nullptr);
+  ASSERT_TRUE(a.manifoldMesh != nullptr);
   
-  size_t origV = mesh->nVertices();
-  size_t origF = mesh->nFaces();
+  size_t origV = a.mesh->nVertices();
+  size_t origF = a.mesh->nFaces();
   
-  catmullClarkSubdivide(*mesh, *geometry);
+  catmullClarkSubdivide(*a.manifoldMesh, *a.geometry);
   
-  EXPECT_GT(mesh->nVertices(), origV);
-  EXPECT_GT(mesh->nFaces(), origF);
+  EXPECT_GT(a.mesh->nVertices(), origV);
+  EXPECT_GT(a.mesh->nFaces(), origF);
 }
 
 TEST_F(SubdivisionSuite, LinearSubdivide) {
-  std::unique_ptr<ManifoldSurfaceMesh> mesh;
-  std::unique_ptr<VertexPositionGeometry> geometry;
-  std::tie(mesh, geometry) = readSurfaceMesh(testMeshTriangle);
+  MeshAsset a = getAsset("spot.ply", true);
   
-  ASSERT_TRUE(mesh != nullptr);
+  ASSERT_TRUE(a.mesh != nullptr);
+  ASSERT_TRUE(a.manifoldMesh != nullptr);
   
-  size_t origV = mesh->nVertices();
-  size_t origF = mesh->nFaces();
+  size_t origV = a.mesh->nVertices();
+  size_t origF = a.mesh->nFaces();
   
-  linearSubdivide(*mesh, *geometry);
+  linearSubdivide(*a.manifoldMesh, *a.geometry);
   
-  EXPECT_GT(mesh->nVertices(), origV);
-  EXPECT_GT(mesh->nFaces(), origF);
+  EXPECT_GT(a.mesh->nVertices(), origV);
+  EXPECT_GT(a.mesh->nFaces(), origF);
 }
 
 TEST_F(SubdivisionSuite, MultipleIterations) {
-  std::unique_ptr<ManifoldSurfaceMesh> mesh;
-  std::unique_ptr<VertexPositionGeometry> geometry;
-  std::tie(mesh, geometry) = readSurfaceMesh(testMeshTriangle);
+  MeshAsset a = getAsset("spot.ply", true);
   
-  ASSERT_TRUE(mesh != nullptr);
+  ASSERT_TRUE(a.mesh != nullptr);
+  ASSERT_TRUE(a.manifoldMesh != nullptr);
   
-  size_t origV = mesh->nVertices();
+  size_t origV = a.mesh->nVertices();
   
   for (int i = 0; i < 3; i++) {
-    loopSubdivide(*mesh, *geometry);
+    loopSubdivide(*a.manifoldMesh, *a.geometry);
   }
   
-  EXPECT_GT(mesh->nVertices(), origV);
+  EXPECT_GT(a.mesh->nVertices(), origV);
 }

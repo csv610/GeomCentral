@@ -48,8 +48,8 @@ GeomCentral provides a comprehensive suite of tools for researchers and develope
 ## 🛠 Getting Started
 
 ### Prerequisites
-- A modern C++ compiler (supporting C++11 or later).
-- [CMake](https://cmake.org/) (version 3.10+ recommended).
+- A modern C++ compiler (supporting C++20 or later).
+- [CMake](https://cmake.org/) (version 3.14+ recommended).
 
 ### Building the Library and Tools
 To build GeomCentral and the expanded set of CLI tools:

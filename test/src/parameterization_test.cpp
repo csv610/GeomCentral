@@ -15,53 +15,49 @@ using namespace geometrycentral::surface;
 class ParameterizationSuite : public MeshAssetSuite {};
 
 TEST_F(ParameterizationSuite, BFFParameterization) {
-  std::unique_ptr<ManifoldSurfaceMesh> mesh;
-  std::unique_ptr<VertexPositionGeometry> geometry;
-  std::tie(mesh, geometry) = readSurfaceMesh(testMeshAPath);
+  MeshAsset a = getAsset("spot.ply", true);
+  ASSERT_TRUE(a.mesh != nullptr);
+  ASSERT_TRUE(a.geometry != nullptr);
+  ASSERT_TRUE(a.manifoldMesh != nullptr);
   
-  ASSERT_TRUE(mesh != nullptr);
-  ASSERT_TRUE(geometry != nullptr);
-  
-  BFF bff(*mesh, *geometry);
+  BFF bff(*a.manifoldMesh, *a.geometry);
   VertexData<Vector2> uv = bff.flatten();
   
-  ASSERT_EQ(uv.size(), mesh->nVertices());
+  ASSERT_EQ(uv.size(), a.mesh->nVertices());
   
-  for (auto v : mesh->vertices()) {
+  for (auto v : a.mesh->vertices()) {
     EXPECT_TRUE(std::isfinite(uv[v].x));
     EXPECT_TRUE(std::isfinite(uv[v].y));
   }
 }
 
 TEST_F(ParameterizationSuite, LSCMParameterization) {
-  std::unique_ptr<ManifoldSurfaceMesh> mesh;
-  std::unique_ptr<VertexPositionGeometry> geometry;
-  std::tie(mesh, geometry) = readSurfaceMesh(testMeshAPath);
+  MeshAsset a = getAsset("spot.ply", true);
   
-  ASSERT_TRUE(mesh != nullptr);
+  ASSERT_TRUE(a.mesh != nullptr);
+  ASSERT_TRUE(a.manifoldMesh != nullptr);
   
-  VertexData<Vector2> uv = parameterizeLSCM(*mesh, *geometry);
+  VertexData<Vector2> uv = parameterizeDisk(*a.manifoldMesh, *a.geometry);
   
-  ASSERT_EQ(uv.size(), mesh->nVertices());
+  ASSERT_EQ(uv.size(), a.mesh->nVertices());
   
-  for (auto v : mesh->vertices()) {
+  for (auto v : a.mesh->vertices()) {
     EXPECT_TRUE(std::isfinite(uv[v].x));
     EXPECT_TRUE(std::isfinite(uv[v].y));
   }
 }
 
 TEST_F(ParameterizationSuite, HarmonicParameterization) {
-  std::unique_ptr<ManifoldSurfaceMesh> mesh;
-  std::unique_ptr<VertexPositionGeometry> geometry;
-  std::tie(mesh, geometry) = readSurfaceMesh(testMeshAPath);
+  MeshAsset a = getAsset("spot.ply", true);
   
-  ASSERT_TRUE(mesh != nullptr);
+  ASSERT_TRUE(a.mesh != nullptr);
+  ASSERT_TRUE(a.manifoldMesh != nullptr);
   
-  VertexData<Vector2> uv = parameterizeHarmonic(*mesh, *geometry);
+  VertexData<Vector2> uv = parameterizeDisk(*a.manifoldMesh, *a.geometry);
   
-  ASSERT_EQ(uv.size(), mesh->nVertices());
+  ASSERT_EQ(uv.size(), a.mesh->nVertices());
   
-  for (auto v : mesh->vertices()) {
+  for (auto v : a.mesh->vertices()) {
     EXPECT_TRUE(std::isfinite(uv[v].x));
     EXPECT_TRUE(std::isfinite(uv[v].y));
   }

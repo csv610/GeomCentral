@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.14.0)
 
 if(POLICY CMP0169)
     cmake_policy(SET CMP0169 OLD) # use deprecated FetchContent_Populate
@@ -40,7 +40,7 @@ else()
     message(STATUS "--    variable GC_EIGEN_LOCATION was set with value ${GC_EIGEN_LOCATION}")
 
     include(EigenChecker)
-    eigen3checker(${GC_EIGEN_LOCATION} 3.3)
+    eigen3checker(${GC_EIGEN_LOCATION} 3.4)
 
     if(EIGEN3_FOUND)
       message(STATUS "--    success. Found suitable Eigen from GC_EIGEN_LOCATION at ${EIGEN3_INCLUDE_DIR}")
@@ -53,7 +53,7 @@ else()
     # GC_EIGEN_LOCATION is not set
     # (3) Search using the normal method
     if(NOT GC_ALWAYS_DOWNLOAD_EIGEN)
-      find_package (Eigen3 3.3 QUIET)
+      find_package (Eigen3 3.4 QUIET)
     endif()
 
     if(EIGEN3_FOUND)
@@ -72,7 +72,7 @@ else()
       FetchContent_Declare(
           eigen
           GIT_REPOSITORY  https://gitlab.com/libeigen/eigen.git
-          GIT_TAG         3.3.9
+          GIT_TAG         3.4.0
           SOURCE_DIR      "${CMAKE_CURRENT_BINARY_DIR}/eigen-src"
           BINARY_DIR      "${CMAKE_CURRENT_BINARY_DIR}/eigen-build"
       )

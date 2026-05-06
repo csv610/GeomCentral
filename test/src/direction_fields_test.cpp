@@ -14,64 +14,60 @@ using namespace geometrycentral::surface;
 class DirectionFieldsSuite : public MeshAssetSuite {};
 
 TEST_F(DirectionFieldsSuite, ComputeSmoothestVertexField) {
-  std::unique_ptr<ManifoldSurfaceMesh> mesh;
-  std::unique_ptr<VertexPositionGeometry> geometry;
-  std::tie(mesh, geometry) = readSurfaceMesh(testMeshAPath);
+  MeshAsset a = getAsset("spot.ply", true);
   
-  ASSERT_TRUE(mesh != nullptr);
-  ASSERT_TRUE(geometry != nullptr);
+  ASSERT_TRUE(a.mesh != nullptr);
+  ASSERT_TRUE(a.geometry != nullptr);
+  ASSERT_TRUE(a.manifoldMesh != nullptr);
   
-  VertexData<Vector2> field = computeSmoothestVertexDirectionField(*geometry, 1);
+  VertexData<Vector2> field = computeSmoothestVertexDirectionField(*a.geometry, 1);
   
-  ASSERT_EQ(field.size(), mesh->nVertices());
+  ASSERT_EQ(field.size(), a.mesh->nVertices());
   
-  for (auto v : mesh->vertices()) {
+  for (auto v : a.mesh->vertices()) {
     double mag = field[v].norm();
     EXPECT_NEAR(mag, 1.0, 1e-6);
   }
 }
 
 TEST_F(DirectionFieldsSuite, ComputeSymmetryField) {
-  std::unique_ptr<ManifoldSurfaceMesh> mesh;
-  std::unique_ptr<VertexPositionGeometry> geometry;
-  std::tie(mesh, geometry) = readSurfaceMesh(testMeshAPath);
+  MeshAsset a = getAsset("spot.ply", true);
   
-  ASSERT_TRUE(mesh != nullptr);
+  ASSERT_TRUE(a.mesh != nullptr);
+  ASSERT_TRUE(a.manifoldMesh != nullptr);
   
-  VertexData<Vector2> field = computeSmoothestVertexDirectionField(*geometry, 4);
+  VertexData<Vector2> field = computeSmoothestVertexDirectionField(*a.geometry, 4);
   
-  for (auto v : mesh->vertices()) {
+  for (auto v : a.mesh->vertices()) {
     double mag = field[v].norm();
     EXPECT_NEAR(mag, 1.0, 1e-6);
   }
 }
 
 TEST_F(DirectionFieldsSuite, FaceField) {
-  std::unique_ptr<ManifoldSurfaceMesh> mesh;
-  std::unique_ptr<VertexPositionGeometry> geometry;
-  std::tie(mesh, geometry) = readSurfaceMesh(testMeshAPath);
+  MeshAsset a = getAsset("spot.ply", true);
   
-  ASSERT_TRUE(mesh != nullptr);
+  ASSERT_TRUE(a.mesh != nullptr);
+  ASSERT_TRUE(a.manifoldMesh != nullptr);
   
-  FaceData<Vector2> field = computeSmoothestFaceDirectionField(*geometry, 1);
+  FaceData<Vector2> field = computeSmoothestFaceDirectionField(*a.geometry, 1);
   
-  ASSERT_EQ(field.size(), mesh->nFaces());
+  ASSERT_EQ(field.size(), a.mesh->nFaces());
   
-  for (auto f : mesh->faces()) {
+  for (auto f : a.mesh->faces()) {
     double mag = field[f].norm();
     EXPECT_NEAR(mag, 1.0, 1e-6);
   }
 }
 
 TEST_F(DirectionFieldsSuite, ComputeIndices) {
-  std::unique_ptr<ManifoldSurfaceMesh> mesh;
-  std::unique_ptr<VertexPositionGeometry> geometry;
-  std::tie(mesh, geometry) = readSurfaceMesh(testMeshAPath);
+  MeshAsset a = getAsset("spot.ply", true);
   
-  ASSERT_TRUE(mesh != nullptr);
+  ASSERT_TRUE(a.mesh != nullptr);
+  ASSERT_TRUE(a.manifoldMesh != nullptr);
   
-  VertexData<Vector2> field = computeSmoothestVertexDirectionField(*geometry, 1);
-  FaceData<int> faceIndices = computeFaceIndex(*geometry, field, 1);
+  VertexData<Vector2> field = computeSmoothestVertexDirectionField(*a.geometry, 1);
+  FaceData<int> faceIndices = computeFaceIndex(*a.geometry, field, 1);
   
-  ASSERT_EQ(faceIndices.size(), mesh->nFaces());
+  ASSERT_EQ(faceIndices.size(), a.mesh->nFaces());
 }

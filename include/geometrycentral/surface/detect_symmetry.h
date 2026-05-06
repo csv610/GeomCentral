@@ -1,6 +1,7 @@
-#pragma once
+#pragma once 
 
 #include "geometrycentral/surface/geometry.h"
+#include "geometrycentral/surface/embedded_geometry_interface.h"
 
 #include <vector>
 
@@ -17,20 +18,20 @@ struct SymmetryResult {
 };
 
 // Look for a symmetry about a mirror plane
-SymmetryResult detectSymmetryMirror(Geometry<Euclidean>* geom, Vector3 planeNormal, Vector3 planePoint);
+SymmetryResult detectSymmetryMirror(EmbeddedGeometryInterface* geom, Vector3 planeNormal, Vector3 planePoint);
 
 // Look for a rotational symmetry
-SymmetryResult detectSymmetryRotation(Geometry<Euclidean>* geom, Vector3 rotAxis, Vector3 rotPoint, int nSym);
+SymmetryResult detectSymmetryRotation(EmbeddedGeometryInterface* geom, Vector3 rotAxis, Vector3 rotPoint, int nSym);
 
 // Automatically search for the typical mirror and rotation symmetries about the
 // shape center
 // Returns any symmetry which is found.
-SymmetryResult detectSymmetryAuto(Geometry<Euclidean>* geom);
-SymmetryResult detectSymmetryAutoRotation(Geometry<Euclidean>* geom);
-SymmetryResult detectSymmetryAutoMirror(Geometry<Euclidean>* geom); // Look for a symmetry about a mirror plane
+SymmetryResult detectSymmetryAuto(EmbeddedGeometryInterface* geom);
+SymmetryResult detectSymmetryAutoRotation(EmbeddedGeometryInterface* geom);
+SymmetryResult detectSymmetryAutoMirror(EmbeddedGeometryInterface* geom);
 
 // Look for symmetry which is mirrored over the y and z planes
-SymmetryResult detectSymmetryDoubleMirror(Geometry<Euclidean>* geom);
+SymmetryResult detectSymmetryDoubleMirror(EmbeddedGeometryInterface* geom);
 
 } // namespace surface
 } // namespace geometrycentral
